@@ -2,69 +2,18 @@
 
 using namespace std;
 
-char maze[5+3][5+3];
-
-int R(int &x,int &y)
-{
-    if (y+1>=0 && y+1<5)
-    {
-        maze[x][y] = maze[x][y+1];
-        maze[x][y+1] = ' ';
-        y++;
-        return 1;
-    }
-    return 0;
-}
-
-int L(int &x,int &y){
-    if (y-1>=0 && y-1<5)
-    {
-        maze[x][y] = maze[x][y-1];
-        maze[x][y-1] = ' ';
-        y--;
-        return 1;
-    }
-    return 0;
-}
-
-int A(int &x,int &y)
-{
-    if (x-1>=0 && x-1<5)
-    {
-        maze[x][y] = maze[x-1][y];
-        maze[x-1][y] = ' ';
-        x--;
-        return 1;
-    }
-    return 0;
-}
-
-int B(int &x,int &y)
-{
-    if (x+1>=0 && x+1<5)
-    {
-        maze[x][y] = maze[x+1][y];
-        maze[x+1][y] = ' ';
-        x++;
-        return 1;
-    }
-    return 0;
-}
-
+char maze[5][7];
+int kase = 0;
 int main()
 {
-    int t=0;
-    char cond;
-    int blank_x,blank_y;
-    while (++t)
+    while (fgets(maze[0],8,stdin))
     {
-        memset(maze,0,sizeof(maze));
-        int flag;
-        fgets(maze[0],8,stdin);
         if (maze[0][0] == 'Z')
             break;
+        
         for (int i=1;i<5;i++)
             fgets(maze[i],8,stdin);
+        int blank_x,blank_y;
         for (int i=0;i<5;i++)
             for (int j=0;j<5;j++)
                 if (maze[i][j] == ' ')
@@ -72,94 +21,71 @@ int main()
                     blank_x = i;
                     blank_y = j;
                 }
-        while ((cond=getchar())!='0')
+        int count = 0;
+        char cond[1000];
+        while (~scanf("%c",&cond[count]))
+            if (cond[count] != '0')
+                count++;
+            else
+                break;
+        cond[count] = 0;getchar();
+
+        int flag = 0;
+        for (int i=0;cond[i];i++)
         {
-            if (cond == 'A')
+            int x=blank_x,y=blank_y;
+            switch (cond[i])
             {
-                flag = A(blank_x,blank_y);
-            }
-            else if (cond == 'B')
-            {
-                flag = B(blank_x,blank_y);
-            }
-            else if (cond == 'L')
-            {
-                flag = L(blank_x,blank_y);
-            }
-            else if (cond == 'R')
-            {
-                flag = R(blank_x,blank_y);
-            }
-        }
-        getchar();
-        // for (int i=0;i<5;i++)
-        // {
-        //     if (!b)
-        //         break;
-        //     for (int j=0;j<5;j++)
-        //     {
-        //         scanf("%c",&maze[i][j]);
-        //         c = maze[i][j];
-        //         if (c=='Z')
-        //         {
-        //             b = 0;
-        //             break;
-                    
-        //         }
-        //         if (c==' ')
-        //         {
-        //             blank_x = i;
-        //             blank_y = j;
-        //         }
-        //     }
-        
-        // }
-        // char con[1000];
-        // scanf("%s",con);
-
-        // for (int i=0;i<strlen(con);i++)
-        // {
-        //     int flag;
-        //     if (con[i] == 'A')
-        //     {
-        //         flag = A(blank_x,blank_y);
-        //     }
-        //     else if (con[i] == 'B')
-        //     {
-        //         flag = B(blank_x,blank_y);
-        //     }
-        //     else if (con[i] == 'L')
-        //     {
-        //         flag = L(blank_x,blank_y);
-        //     }
-        //     else if (con[i] == 'R')
-        //     {
-        //         flag = R(blank_x,blank_y);
-        //     }
-
-        //     if (!flag)
-        //     {
-        //         printf("Puzzle #%d:\n",t);
-        //         printf("This puzzle has no final configuration.\n");
-        //         break;
-        //     }
-
-            if (flag)
-            {
-                printf("Puzzle #%d:\n",t);
-                for (int i=0;i<5;i++)
+                case 'A':
                 {
-                    fputs(maze[i],stdout);
+                    x--;
+                    break;
                 }
-                printf("\n");
+                case 'B':
+                {
+                    x++;
+                    break;
+                }
+                case 'L':
+                {
+                    y--;
+                    break;
+                }
+                case 'R':
+                {
+                    y++;
+                    break;
+                }
+            }
+            if (x<0 || x>4 || y<0 || y>4)
+            {
+                flag = 1;break;
             }
             else
             {
-                printf("Puzzle #%d:\n",t);
-                printf("This puzzle has no final configuration.\n");
+                maze[blank_x][blank_y] = maze[x][y];
+                maze[x][y] = ' ';
+                blank_x = x;blank_y = y;
             }
-            
-        
+        }
+        if (kase++)
+            printf("\n");
+        printf("Puzzle #%d:\n",kase);
+
+        if (flag)
+            printf("This puzzle has no final configuration.\n");
+        else
+        {
+            for (int i=0;i<5;i++)
+            {
+                printf("%c",maze[i][0]);
+                for (int j=1;j<5;j++)
+                {
+                    printf(" %c",maze[i][j]);
+                }
+                printf("\n");
+            }
+        }
     }
     return 0;
 }
