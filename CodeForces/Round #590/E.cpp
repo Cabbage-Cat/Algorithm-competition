@@ -4,7 +4,7 @@ int main(){
   int n,m; cin >> n >> m;
   vector<int> x(m);
   for (int i=0;i<m;i++) { cin >> x[i]; x[i]--; }
-  vector<int> res(n);
+  vector<long long> res(n);
   vector<vector<int>> edge(n);
   vector<int> cnt(n);
   for (int i=0;i<m-1;i++) res[0] += abs(x[i]-x[i+1]);
