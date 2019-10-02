@@ -25,7 +25,8 @@ int main(){
       scanf("%d",&r); r--;
       int res = 0;
       for (int i=0;i<26;i++){
-        set<int>::iterator it =  lower_bound(vec[i].begin(),vec[i].end(),l);
+        // set<int>::iterator it =  lower_bound(vec[i].begin(),vec[i].end(),l);
+        auto it = vec[i].lower_bound(l);
         if (it == vec[i].end() || *it > r) continue;
         else res++;
       }
