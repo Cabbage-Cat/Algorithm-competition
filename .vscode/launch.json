@@ -6,6 +6,34 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "Luogu.Main",
+            "projectName": "Algorithm-competition_7a627b0"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - biggg",
+            "request": "launch",
+            "mainClass": "biggg",
+            "projectName": "Algorithm-competition_7a627b0"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - P1045",
+            "request": "launch",
+            "mainClass": "P1045",
+            "projectName": "Algorithm-competition_7a627b0"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - P1045",
+            "request": "launch",
+            "mainClass": "Luogu.P1045",
+            "projectName": "Algorithm-competition_7a627b0"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - test",
             "request": "launch",
             "mainClass": "test"
