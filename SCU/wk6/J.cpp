@@ -1,24 +1,26 @@
 #include <bits/stdc++.h>
-#include <regex>
 using namespace std;
-string s;
+const int maxn = 30 + 6;
+char s[maxn];
 int main(){
-  
-  regex repPatten("^[0-9]{1,3}-[0-9]{1,3}-[0-9]{1,3}-[0-9]{1,3}");
-  while (cin >> s){
-    for (int i=0;i<s.length();i++) if (s[i]=='.') s[i] = '-';
-    bool b = regex_match(s,repPatten);
-    if (!b) { cout << "NO\n"; continue; }
-    stringstream ss(s);
-    string sub_str;
-    int flag = 1;
-    while (getline(ss,sub_str,'-')){
-      int s_sum = 0;
-      for (int i=0;i<sub_str.length();i++)
-        s_sum = s_sum*10 + (sub_str[i]-'0');
-      if (s_sum<0||s_sum>255) { flag = 0; break;};
+  while (~scanf("%s",s)){
+    int dot_sum = 0;
+    int dot_idx[4]; dot_idx[3] = strlen(s);
+    for (int i=0;i<strlen(s);i++) if (s[i]=='.'){ if (dot_sum<3) dot_idx[dot_sum]=i; dot_sum++;} 
+    if (dot_sum!=3) { printf("NO\n"); continue; }
+    if (dot_idx[0]==0||dot_idx[1]-dot_idx[0]==1||dot_idx[2]-dot_idx[1]==1) { printf("NO\n"); continue; } 
+    int p=-1,flag=1;
+    for (int i=0;i<4;i++){
+      int sum=0; flag = 1;
+      while(++p<dot_idx[i]){
+        if (isdigit(s[p])) sum = sum*10 + (s[p]-'0');
+        else { flag = 0; break;}
+      }
+      if (flag&&(sum<0||sum>255)) flag = 0; p++;
+      if (!flag) { printf("NO\n"); break; }
     }
-    printf("%s", flag?"YES\n":"NO\n");
+    if (flag) printf("YES\n");
   }
+  
   return 0;
 }
