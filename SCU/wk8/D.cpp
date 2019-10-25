@@ -15,3 +15,4 @@ int main(){
   if (!flag) cout << "No Solution";
   return 0;
 }
+
