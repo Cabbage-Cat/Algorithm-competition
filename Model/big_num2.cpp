@@ -1,14 +1,3 @@
-#include <cstdio>
-#include <iostream> 
-#include <cstring>
-#include <algorithm>
-using namespace std;
-typedef pair<int,int> P;
-P people[1010];
-#define MAXN 9999
-#define MAXSIZE 1010
-#define DLEN 4
-
 class BigNum
 {
 private:
@@ -273,21 +262,4 @@ void BigNum::print()   //输出大数
     for(i=len-2;i>=0;i--)
       printf("%04d",a[i]);
     printf("\n");
-}
-
-bool cmp(P p1,P p2){
-  return p1.first*p1.second < p2.first*p2.second;
-}
-int main(){
-  int n; cin >> n;
-  for (int i=0;i<=n;i++)
-    scanf("%d%d",&people[i].first,&people[i].second);
-  sort(people+1,people+n+1,cmp);
-  BigNum res = BigNum(1);
-  for (int i=0;i<n;i++) { res = res*people[i].first;}
-  res= res/people[n].second;
-  if (!(res>1)) cout << "1"; 
-  else
-   res.print();
-  return 0;
 }

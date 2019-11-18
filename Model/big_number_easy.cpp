@@ -45,7 +45,16 @@ bool sub(int a[],int b[],int c[]){
   }
   return a_bigger_b;
 }
-
+void mul_short(int a[],int b,int c[]){
+  clear(c);
+  for (int i=0;i<maxn-1;i++){
+    c[i] += a[i]*b;
+    if (c[i]>=10){
+      c[i+1] += c[i] /10;
+      c[i]%=10;
+    }
+  }
+}
 void mul(int a[],int b[],int c[]){
   clear(c);
   for (int i=0;i<maxn-1;i++){
